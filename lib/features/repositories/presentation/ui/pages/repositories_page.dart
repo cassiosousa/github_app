@@ -27,11 +27,9 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Theme.of(context).primaryColor,
         child: SafeArea(
           bottom: false,
           child: Container(
-            color: Colors.white,
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
