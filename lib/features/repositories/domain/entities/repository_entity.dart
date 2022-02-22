@@ -2,6 +2,7 @@ import 'package:github_app/features/repositories/domain/entities/license_entity.
 import 'package:github_app/features/repositories/domain/entities/owner_entity.dart';
 
 class RepositoryEntity {
+  
   RepositoryEntity({
     required this.id,
     required this.nodeId,

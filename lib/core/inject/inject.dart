@@ -13,6 +13,7 @@ import 'package:github_app/features/profiles/domain/usecases/fetch_profiles_usec
 import 'package:github_app/features/profiles/domain/usecases/fetch_profiles_usecase_impl.dart';
 import 'package:github_app/features/profiles/domain/usecases/fetch_repositories_usecase.dart';
 import 'package:github_app/features/profiles/domain/usecases/fetch_repositories_usecase_impl.dart';
+import 'package:github_app/features/repositories/data/datasources/local/search_repositories_datasource_decorator_impl.dart';
 import 'package:github_app/features/repositories/data/datasources/remote/search_repositories_remote_datasource_impl.dart';
 import 'package:github_app/features/repositories/data/datasources/search_repositories_datasource.dart';
 import 'package:github_app/features/repositories/data/repositories/search_repositories_repository_impl.dart';
@@ -31,20 +32,26 @@ class Inject {
     getIt.registerLazySingleton<FetchProfilesDataSource>(
       () => FetchProfilesLocalDataSourceDecoratorImp(getIt()),
     );
-    getIt.registerLazySingleton<SearchRepositoriesDatasource>(
-      () => SearchRepositoriesDatasourceImpl(getIt()),
-    );
+
     getIt.registerLazySingleton<FetchRepositoriesDataSource>(
       () => FetchRepositoriesDataSourceImpl(getIt()),
     );
 
-    //repositories
+    getIt.registerLazySingleton<SearchRepositoriesDatasource>(
+      () => SearchRepositoriesLocalDatasourceDecoratorImpl(
+        SearchRepositoriesRemoteDatasourceImpl(getIt()),
+      ),
+    );
+
+    // Repositories
     getIt.registerLazySingleton<FetchProfilesRepository>(
       () => FetchProfilesRepositoryImpl(getIt()),
     );
+
     getIt.registerLazySingleton<SearchRepositoriesRepository>(
       () => SearchRepositoriesRepositoryImpl(getIt()),
     );
+
     getIt.registerLazySingleton<FetchRepositoriesRepository>(
       () => FetchRepositoriesRepositoryImpl(getIt()),
     );

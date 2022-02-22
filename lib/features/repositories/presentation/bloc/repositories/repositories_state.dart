@@ -18,7 +18,7 @@ class RepositoriesSuccess extends RepositoriesState {
   List<Object> get props => [repositories];
 
   @override
-  String toString() => 'TodosLoadSuccess { todos: $repositories }';
+  String toString() => 'RepositoriesLoadSuccess { todos: $repositories }';
 }
 
 class RepositoriesFail extends RepositoriesState {}

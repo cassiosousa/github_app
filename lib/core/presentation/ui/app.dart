@@ -9,6 +9,7 @@ import 'package:github_app/core/utils/routes.dart';
 import 'package:github_app/features/profiles/presentation/bloc/profile/profile_repositories_bloc.dart';
 import 'package:github_app/features/profiles/presentation/ui/pages/profile_page.dart';
 import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories_bloc.dart';
+import 'package:github_app/features/repositories/presentation/bloc/repositories/search/repositories_search_bloc.dart';
 import 'package:github_app/features/repositories/presentation/dtos/owner_dto.dart';
 import 'package:github_app/features/repositories/presentation/ui/pages/repositories_page.dart';
 
@@ -31,12 +32,17 @@ class GitHubApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('en'), Locale('pt')],
       routes: {
-        Routes.REPOSITORIES: (context) => BlocProvider(
-              create: (_) => RepositoriesBloc(GetIt.I()),
+        Routes.REPOSITORIES: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => RepositoriesBloc(GetIt.I())),
+                BlocProvider(create: (_) => RepositoriesSearchBloc()),
+              ],
               child: const RepositoriesPage(),
             ),
-        Routes.PROFILE: (context) => BlocProvider(
-              create: (_) => ProfileRepositoriesBloc(GetIt.I()),
+        Routes.PROFILE: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => ProfileRepositoriesBloc(GetIt.I()))
+              ],
               child: ProfilePage(
                 ownerDto:
                     ModalRoute.of(context)!.settings.arguments as OwnerDto,

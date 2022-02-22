@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories_bloc.dart';
-import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories_event.dart';
-import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories_state.dart';
-import 'package:github_app/features/repositories/presentation/ui/widgets/repositories_card/repositories_card_widget.dart';
+import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories.dart';
+import 'package:github_app/features/repositories/presentation/ui/widgets/repositories_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepositoriesPage extends StatefulWidget {
@@ -16,11 +14,12 @@ class RepositoriesPage extends StatefulWidget {
   State<RepositoriesPage> createState() => _RepositoriesPageState();
 }
 
+//AppLocalizations.of(context)!.repositories
 class _RepositoriesPageState extends State<RepositoriesPage> {
   @override
   void initState() {
     super.initState();
-    context.read<RepositoriesBloc>().add(RepositoriesSearch());
+    context.read<RepositoriesBloc>().add(const RepositoriesSearch("flutter"));
   }
 
   @override
@@ -33,12 +32,15 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  title: Text(
-                    AppLocalizations.of(context)!.repositories,
+                  title: RepositoriesHeaderSearchWidget(
+                    onComplete: (value) => context
+                        .read<RepositoriesBloc>()
+                        .add(RepositoriesSearch(value)),
                   ),
                 ),
                 BlocBuilder<RepositoriesBloc, RepositoriesState>(
                   builder: (_, state) {
+                    print(state);
                     if (state is RepositoriesSuccess) {
                       return SliverAnimatedList(
                         initialItemCount: state.repositories.length,
