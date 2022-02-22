@@ -33,37 +33,44 @@ class RepositoriesCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: AvatarWidget(
-                          avatarUrl: repositoryDto.ownerDto.avatarUrl,
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: AvatarWidget(
+                            avatarUrl: repositoryDto.ownerDto.avatarUrl,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: AdaptativeTheme.minimunExtraSpace,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              repositoryDto.name,
-                              style: Theme.of(context).textTheme.headline6,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: AdaptativeTheme.minimunExtraSpace,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: AdaptativeTheme.minimunSpace),
-                              child: RepositoriesStarWidget(
-                                  quantity: repositoryDto.star),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  repositoryDto.name,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: AdaptativeTheme.minimunSpace),
+                                  child: RepositoriesStarWidget(
+                                      quantity: repositoryDto.star),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Icon(
                     Icons.chevron_right,

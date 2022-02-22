@@ -3,5 +3,6 @@
     "repositories": "Repositórios",
     "profile": "Perfil",
     "abount":"Sobre",
-    "noDescription":"Sem descrição para o perfil."
+    "noDescription":"Sem descrição para o perfil.",
+    "search": "Procurar por"
 }

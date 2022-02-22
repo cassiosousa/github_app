@@ -18,56 +18,53 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: ProfileAppBarTitleWidget(title: ownerDto.login),
-              leading: const ProfileAppBarBackButtonWidget(),
-              backgroundColor: Colors.white,
-              flexibleSpace: ProfileAppBarContentWidget(
-                avatarUrl: ownerDto.avatarUrl,
-              ),
-              expandedHeight: MediaQuery.of(context).size.height / 3,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: ProfileAppBarTitleWidget(title: ownerDto.login),
+            leading: const ProfileAppBarBackButtonWidget(),
+            backgroundColor: Colors.white,
+            flexibleSpace: ProfileAppBarContentWidget(
+              avatarUrl: ownerDto.avatarUrl,
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AdaptativeTheme.minimunSpace, vertical: 20),
-              sliver: SliverToBoxAdapter(
-                child: ProfileAboutWidget(
-                  name: ownerDto.login,
-                  description: null,
-                ),
+            expandedHeight: MediaQuery.of(context).size.height / 3,
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AdaptativeTheme.minimunSpace, vertical: 20),
+            sliver: SliverToBoxAdapter(
+              child: ProfileAboutWidget(
+                name: ownerDto.login,
+                description: null,
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AdaptativeTheme.minimunSpace, vertical: 20),
-              sliver: SliverToBoxAdapter(
-                  child: Text(
-                AppLocalizations.of(context)!.repositories,
-                style: Theme.of(context).textTheme.headline5,
-              )),
-            ),
-            BlocBuilder<ProfileRepositoriesBloc, ProfileRepositoriesState>(
-              builder: (_, state) {
-                if (state is ProfileRepositoriesSuccess) {
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate((_, index) {
-                      return Container();
-                    }, childCount: 2),
-                  );
-                }
-                if (state is ProfileRepositoriesLoading) {
-                  return const SliverFillRemaining(
-                      child: Center(child: CircularProgressIndicator()));
-                }
-                return const SliverToBoxAdapter(child: SizedBox());
-              },
-            ),
-          ],
-        ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AdaptativeTheme.minimunSpace, vertical: 20),
+            sliver: SliverToBoxAdapter(
+                child: Text(
+              AppLocalizations.of(context)!.repositories,
+              style: Theme.of(context).textTheme.headline5,
+            )),
+          ),
+          BlocBuilder<ProfileRepositoriesBloc, ProfileRepositoriesState>(
+            builder: (_, state) {
+              if (state is ProfileRepositoriesSuccess) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((_, index) {
+                    return Container();
+                  }, childCount: 2),
+                );
+              }
+              if (state is ProfileRepositoriesLoading) {
+                return const SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()));
+              }
+              return const SliverToBoxAdapter(child: SizedBox());
+            },
+          ),
+        ],
       ),
     );
   }

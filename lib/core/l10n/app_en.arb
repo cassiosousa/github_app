@@ -3,5 +3,6 @@
     "repositories": "Repositories",
     "profile":"Profile",
     "about":"Abount",
-    "noDescription":"No description for profile."
+    "noDescription":"No description for profile.",
+    "search": "Search by"
 }

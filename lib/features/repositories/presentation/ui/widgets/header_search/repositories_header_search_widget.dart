@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_app/features/repositories/presentation/bloc/repositories/search/repositories_search.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepositoriesHeaderSearchWidget extends StatelessWidget {
   final Function(String) onComplete;
@@ -20,6 +21,8 @@ class RepositoriesHeaderSearchWidget extends StatelessWidget {
           }
         }, builder: (context, state) {
           return TextField(
+            decoration:
+                InputDecoration(hintText: AppLocalizations.of(context)!.search),
             onChanged: (value) {
               context
                   .read<RepositoriesSearchBloc>()

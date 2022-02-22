@@ -10,6 +10,7 @@ class AvatarWidget extends StatelessWidget {
       child: Image.network(
         avatarUrl,
         cacheHeight: 50,
+        fit: BoxFit.fill,
       ),
     );
   }
