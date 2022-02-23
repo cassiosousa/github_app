@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_app/features/repositories/presentation/bloc/repositories/repositories.dart';
 import 'package:github_app/features/repositories/presentation/ui/widgets/repositories_widget.dart';
@@ -13,9 +14,9 @@ class RepositoriesPage extends StatefulWidget {
   State<RepositoriesPage> createState() => _RepositoriesPageState();
 }
 
-//AppLocalizations.of(context)!.repositories
 class _RepositoriesPageState extends State<RepositoriesPage> {
-  bool isFilter = false;
+  bool _isFilter = false;
+  var currentText = "";
   @override
   void initState() {
     super.initState();
@@ -25,24 +26,45 @@ class _RepositoriesPageState extends State<RepositoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) {
+          if (notification.metrics.atEdge) {
+            if (notification.metrics.pixels == 0) {
+              setState(() {
+                _isFilter = false;
+              });
+            }
+          }
+          return true;
+        },
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               title: GestureDetector(
-                onTap: () => isFilter = !isFilter,
+                onTap: () {
+                  setState(() {
+                    _isFilter = !_isFilter;
+                  });
+                },
                 child: AnimatedSwitcher(
-                  duration: const Duration(seconds: 1),
-                  child: !isFilter
+                  duration: const Duration(milliseconds: 500),
+                  transitionBuilder: (widget, animation) => ScaleTransition(
+                    scale: animation,
+                    child: widget,
+                  ),
+                  child: !_isFilter
                       ? Text(
-                          AppLocalizations.of(context)!.repositories,
+                          "${AppLocalizations.of(context)!.repositories}$currentText",
                         )
                       : RepositoriesHeaderSearchWidget(
-                          onComplete: (value) => context
-                              .read<RepositoriesBloc>()
-                              .add(RepositoriesSearch(value)),
-                        ),
+                          value: currentText,
+                          onComplete: (value) {
+                            currentText = " $value";
+                            context
+                                .read<RepositoriesBloc>()
+                                .add(RepositoriesSearch(value));
+                          }),
                 ),
               ),
             ),

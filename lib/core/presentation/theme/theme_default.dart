@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,7 +52,10 @@ final themeLight = ThemeData(
           borderRadius: BorderRadius.circular(10),
         ),
       ).shape),
-  appBarTheme: const AppBarTheme(backgroundColor: Colors.deepPurple),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.deepPurple,
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
   primaryColor: Colors.deepPurple,
   indicatorColor: Colors.deepPurple,
   progressIndicatorTheme:

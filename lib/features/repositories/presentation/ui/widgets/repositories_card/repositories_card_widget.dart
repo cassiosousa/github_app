@@ -37,7 +37,9 @@ class RepositoriesCard extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        Container(
+                          margin: const EdgeInsets.only(
+                              right: AdaptativeTheme.minimunSpace),
                           width: 100,
                           height: 100,
                           child: AvatarWidget(

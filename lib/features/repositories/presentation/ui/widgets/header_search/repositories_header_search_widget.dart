@@ -5,7 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RepositoriesHeaderSearchWidget extends StatelessWidget {
   final Function(String) onComplete;
-  const RepositoriesHeaderSearchWidget({Key? key, required this.onComplete})
+  final String value;
+  const RepositoriesHeaderSearchWidget(
+      {Key? key, required this.onComplete, required this.value})
       : super(key: key);
 
   @override
@@ -21,8 +23,24 @@ class RepositoriesHeaderSearchWidget extends StatelessWidget {
           }
         }, builder: (context, state) {
           return TextField(
-            decoration:
-                InputDecoration(hintText: AppLocalizations.of(context)!.search),
+            style: const TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              hintText:
+                  value.isEmpty ? AppLocalizations.of(context)!.search : value,
+              hintStyle: const TextStyle(color: Colors.white),
+              contentPadding: const EdgeInsets.all(5),
+              filled: false,
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusColor: Colors.white,
+            ),
             onChanged: (value) {
               context
                   .read<RepositoriesSearchBloc>()
